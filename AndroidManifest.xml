@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="greendream.ait.tarot"
     android:installLocation="preferExternal"
     android:versionCode="9"
     android:versionName="1.0" >
 
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="18"/>
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- <uses-permission android:name="android.permission.CALL_PHONE" />  --> 
 
     <supports-screens
         android:anyDensity="true"
@@ -26,109 +20,127 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:largeHeap="true" 
+        android:largeHeap="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name="greendream.ait.tarot.activity.HomeActivity"
+            android:exported="true"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.SplashScreen"
+            android:exported="false"
             android:label="@string/app_name" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.ShuffleCutActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.BrowseCardsActivity"
+            android:exported="false"
             android:label="@string/app_name" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.BrowseGroupCardsActivity"
+            android:exported="false"
             android:label="@string/app_name" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.ItemGroupDetailActivity"
+            android:exported="false"
             android:label="@string/app_name" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.ProfileActivity"
+            android:exported="false"
             android:label="@string/app_name" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.TarotSpreadActivity"
+            android:exported="false"
             android:label="@string/app_name" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.TarotSpreadGuideActivity"
+            android:exported="false"
             android:label="@string/app_name" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.SpreadCardsActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.CardDetailViewPagerForBrowserCardActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.CardDetailViewPagerForSpreadCardActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.SingleCardActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.JournalActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.EditSavedSpreadActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
-        
+
         <activity
             android:name="greendream.ait.tarot.activity.CreateCustomSpreadActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
 
         <activity
             android:name="greendream.ait.tarot.activity.EditCardNoteActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
-        
-        <activity android:name="com.google.ads.AdActivity"
-              android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+
+        <activity
+            android:name="com.google.ads.AdActivity"
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
     </application>
 
 </manifest>
