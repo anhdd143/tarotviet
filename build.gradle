@@ -20,6 +20,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 33
     buildToolsVersion "33.0.2"
+    namespace "greendream.ait.tarot"
 
     defaultConfig {
         applicationId "greendream.ait.tarot"
@@ -35,7 +36,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -48,14 +49,16 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
-    
+
     lintOptions {
         abortOnError false
+    }
+
+    aaptOptions {
+        cruncherEnabled = false
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    // Add support library if needed, but project uses old structure so maybe included in libs
-    // implementation 'com.android.support:appcompat-v7:28.0.0' 
 }
