@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#33FFFFFF"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:layout_marginBottom="1dp" >
+
+    <!-- Top row: Title + Date -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tvReadingTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Bài đọc"
+            android:textColor="#FFD700"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvReadingDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01/01/2026"
+            android:textColor="#999999"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!-- Spread type badge -->
+    <TextView
+        android:id="@+id/tvReadingType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="#44FFD700"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:text="Trải bài Celtic Cross"
+        android:textColor="#FFD700"
+        android:textSize="11sp" />
+
+    <!-- Question preview -->
+    <TextView
+        android:id="@+id/tvReadingQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="#CCCCCC"
+        android:textSize="13sp"
+        android:visibility="gone" />
+
+    <!-- Card count -->
+    <TextView
+        android:id="@+id/tvCardCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="🃏 3 lá bài"
+        android:textColor="#888888"
+        android:textSize="12sp" />
+
+</LinearLayout>

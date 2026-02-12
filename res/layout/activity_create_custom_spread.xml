@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FF1a1a2e" >
+
+    <!-- ViewFlipper: Page 0 = Info Form, Page 1 = Designer Canvas -->
+    <ViewFlipper
+        android:id="@+id/viewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <!-- ===== PAGE 0: Spread Info Form ===== -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp" >
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tự thiết kế trải bài"
+                    android:textColor="#FFe6c866"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="24dp" />
+
+                <!-- Spread Name -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tên kiểu trải bài"
+                    android:textColor="#FFcccccc"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="4dp" />
+
+                <EditText
+                    android:id="@+id/editSpreadName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nhập tên kiểu trải bài..."
+                    android:textColor="#FFffffff"
+                    android:textColorHint="#FF888888"
+                    android:textSize="16sp"
+                    android:background="#FF2a2a4a"
+                    android:padding="12dp"
+                    android:singleLine="true"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Description -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mô tả"
+                    android:textColor="#FFcccccc"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="4dp" />
+
+                <EditText
+                    android:id="@+id/editSpreadDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nhập mô tả kiểu trải bài..."
+                    android:textColor="#FFffffff"
+                    android:textColorHint="#FF888888"
+                    android:textSize="16sp"
+                    android:background="#FF2a2a4a"
+                    android:padding="12dp"
+                    android:minLines="3"
+                    android:maxLines="5"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Card Count -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số lá bài"
+                    android:textColor="#FFcccccc"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="4dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="24dp" >
+
+                    <SeekBar
+                        android:id="@+id/seekBarCardCount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:min="1"
+                        android:max="14"
+                        android:progress="2" />
+
+                    <TextView
+                        android:id="@+id/txtCardCount"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:textColor="#FFe6c866"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <!-- Next Button -->
+                <Button
+                    android:id="@+id/btnNextToDesigner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Thiết kế vị trí lá bài →"
+                    android:textColor="#FF1a1a2e"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:background="#FFe6c866"
+                    android:padding="14dp"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- ===== PAGE 1: Designer Canvas ===== -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <!-- Top toolbar -->
+            <LinearLayout
+                android:id="@+id/designerTopBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#CC0d0d1a"
+                android:padding="6dp"
+                android:gravity="center_vertical"
+                android:layout_alignParentTop="true" >
+
+                <Button
+                    android:id="@+id/btnBackToInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="← Quay lại"
+                    android:textColor="#FFcccccc"
+                    android:textSize="12sp"
+                    android:background="#FF2a2a4a"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" />
+
+                <TextView
+                    android:id="@+id/txtDesignerTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Thiết kế"
+                    android:textColor="#FFe6c866"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/txtDesignerCardCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 lá"
+                    android:textColor="#FFcccccc"
+                    android:textSize="13sp"
+                    android:layout_marginRight="8dp" />
+            </LinearLayout>
+
+            <!-- Designer Canvas -->
+            <greendream.ait.tarot.view.SpreadDesignerView
+                android:id="@+id/spreadDesigner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/designerTopBar"
+                android:layout_above="@+id/designerBottomBar"
+                android:background="#FF0d0d1a" />
+
+            <!-- Bottom toolbar -->
+            <LinearLayout
+                android:id="@id/designerBottomBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#CC0d0d1a"
+                android:padding="6dp"
+                android:gravity="center"
+                android:layout_alignParentBottom="true" >
+
+                <Button
+                    android:id="@+id/btnAddCard"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="+ Thêm"
+                    android:textColor="#FFffffff"
+                    android:textSize="13sp"
+                    android:background="#FF3a3a6a"
+                    android:layout_marginRight="4dp" />
+
+                <Button
+                    android:id="@+id/btnAutoArrange"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Sắp xếp"
+                    android:textColor="#FFffffff"
+                    android:textSize="13sp"
+                    android:background="#FF3a3a6a"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp" />
+
+                <Button
+                    android:id="@+id/btnToggleGrid"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Lưới"
+                    android:textColor="#FFffffff"
+                    android:textSize="13sp"
+                    android:background="#FF3a3a6a"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp" />
+
+                <Button
+                    android:id="@+id/btnSaveDesign"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Lưu ✓"
+                    android:textColor="#FF1a1a2e"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:background="#FFe6c866"
+                    android:layout_marginLeft="4dp" />
+            </LinearLayout>
+
+            <!-- Help hint overlay -->
+            <TextView
+                android:id="@+id/txtDesignerHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Kéo thả để sắp xếp • Chạm đôi để xoay\nGiữ lâu để sửa/xóa"
+                android:textColor="#66ffffff"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+    </ViewFlipper>
+</LinearLayout>

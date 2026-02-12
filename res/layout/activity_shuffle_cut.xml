@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF1a1a2e" >
+
+    <!-- FrameLayout to hold the custom views -->
+    <FrameLayout
+        android:id="@+id/layoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp" >
+
+        <!-- Custom View: Shuffle Cards -->
+        <greendream.ait.tarot.view.ShuffleCardLayout
+            android:id="@+id/shuffleCardLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+        <!-- Custom View: Cut Cards -->
+        <greendream.ait.tarot.view.CutCardLayout
+            android:id="@+id/cutCardLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <!-- Bottom Button Bar -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="#CC0d0d1a"
+        android:padding="10dp" >
+
+        <Button
+            android:id="@+id/btnShuffleCut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Kinh bài"
+            android:textColor="#FFffffff"
+            android:textStyle="bold"
+            android:background="#FF3a3a6a"
+            android:layout_marginRight="5dp" />
+
+        <Button
+            android:id="@+id/btnDraw"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Rút bài"
+            android:textColor="#FF1a1a2e"
+            android:textStyle="bold"
+            android:background="#FFe6c866"
+            android:layout_marginLeft="5dp" />
+    </LinearLayout>
+    
+    <!-- Instruction Overlay -->
+    <TextView
+        android:id="@+id/txtInstruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Tập trung vào câu hỏi...\nLắc máy hoặc chạm để xào bài"
+        android:textColor="#88ffffff"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginBottom="100dp" />
+
+</RelativeLayout>

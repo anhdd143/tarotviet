@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="greendream.ait.tarot"
+    android:installLocation="preferExternal"
+    android:versionCode="9"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- <uses-permission android:name="android.permission.CALL_PHONE" />  --> 
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true" 
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="greendream.ait.tarot.activity.HomeActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.SplashScreen"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.ShuffleCutActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.BrowseCardsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.BrowseGroupCardsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.ItemGroupDetailActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.ProfileActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.TarotSpreadActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.TarotSpreadGuideActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.SpreadCardsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.CardDetailViewPagerForBrowserCardActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.CardDetailViewPagerForSpreadCardActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.SingleCardActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.JournalActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.EditSavedSpreadActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="greendream.ait.tarot.activity.CreateCustomSpreadActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
+            android:name="greendream.ait.tarot.activity.EditCardNoteActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity android:name="com.google.ads.AdActivity"
+              android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+    </application>
+
+</manifest>
