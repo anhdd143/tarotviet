@@ -202,7 +202,7 @@ public class JournalActivity extends Activity implements View.OnClickListener {
 		case R.id.btn_start_reading:
 			if (showingDailyCards) {
 				// Go to draw single card
-				Intent intentDraw = new Intent(this, ChooseCardActivity.class);
+				Intent intentDraw = new Intent(this, ShuffleCutActivity.class);
 				intentDraw.putExtra("cardSelectInNeed", 1);
 				startActivity(intentDraw);
 			} else {

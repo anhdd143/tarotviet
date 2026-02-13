@@ -180,7 +180,7 @@ public class HomeActivity extends Activity implements OnClickListener,
 		switch (v.getId()) {
 		case R.id.btn_drawcard:
 			Intent intentDrawCardActivity = new Intent(this,
-					ChooseCardActivity.class);
+					ShuffleCutActivity.class);
 			intentDrawCardActivity.putExtra("cardSelectInNeed", 1);
 			TransitionHelper.transitionTo(this, intentDrawCardActivity);
 			break;
