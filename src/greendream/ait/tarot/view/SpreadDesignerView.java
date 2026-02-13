@@ -41,6 +41,8 @@ public class SpreadDesignerView extends FrameLayout {
 	private static final int BASE_CARD_HEIGHT = 110;
 	private static final int SNAP_THRESHOLD = 20; // pixels
 	private static final int GRID_SPACING = 40; // pixels
+	// Rotation angles available (8 directions like Galaxy Tarot)
+	private static final int[] ROTATION_ANGLES = {0, 45, 90, 135, 180, 225, 270, 315};
 
 	private List<CardPlaceholder> cards = new ArrayList<CardPlaceholder>();
 	private CardPlaceholder selectedCard = null;
@@ -62,9 +64,9 @@ public class SpreadDesignerView extends FrameLayout {
 	 * Card placeholder data
 	 */
 	public static class CardPlaceholder {
-		public int x; // pixel position
+		public int x; // pixel position (center of card)
 		public int y;
-		public int rotation; // 0 = portrait, 180 = landscape
+		public int rotation; // degrees: 0, 45, 90, 135, 180, 225, 270, 315
 		public String label;
 		public int index; // card number (1-based)
 		public View view; // the visual view
@@ -78,11 +80,40 @@ public class SpreadDesignerView extends FrameLayout {
 		}
 
 		public int getWidth() {
-			return rotation == 180 ? BASE_CARD_HEIGHT : BASE_CARD_WIDTH;
+			return BASE_CARD_WIDTH;
 		}
 
 		public int getHeight() {
-			return rotation == 180 ? BASE_CARD_WIDTH : BASE_CARD_HEIGHT;
+			return BASE_CARD_HEIGHT;
+		}
+
+		/** Get the bounding box size accounting for rotation */
+		public int getBoundingSize() {
+			// For rotated cards, the bounding box is larger
+			if (rotation % 90 == 0) {
+				// 0°, 90°, 180°, 270° — axis-aligned
+				if (rotation == 90 || rotation == 270) {
+					return Math.max(BASE_CARD_HEIGHT, BASE_CARD_WIDTH);
+				}
+				return Math.max(BASE_CARD_WIDTH, BASE_CARD_HEIGHT);
+			}
+			// 45°, 135°, etc. — diagonal, bounding box is larger
+			double rad = Math.toRadians(rotation);
+			int w = (int)(Math.abs(BASE_CARD_WIDTH * Math.cos(rad)) + Math.abs(BASE_CARD_HEIGHT * Math.sin(rad)));
+			int h = (int)(Math.abs(BASE_CARD_WIDTH * Math.sin(rad)) + Math.abs(BASE_CARD_HEIGHT * Math.cos(rad)));
+			return Math.max(w, h);
+		}
+
+		/** Cycle to next rotation angle */
+		public void rotateNext() {
+			int currentIdx = 0;
+			for (int i = 0; i < ROTATION_ANGLES.length; i++) {
+				if (ROTATION_ANGLES[i] == rotation) {
+					currentIdx = i;
+					break;
+				}
+			}
+			rotation = ROTATION_ANGLES[(currentIdx + 1) % ROTATION_ANGLES.length];
 		}
 	}
 
@@ -157,8 +188,8 @@ public class SpreadDesignerView extends FrameLayout {
 			public boolean onDoubleTap(MotionEvent e) {
 				CardPlaceholder card = findCardAt((int) e.getX(), (int) e.getY());
 				if (card != null) {
-					// Toggle rotation
-					card.rotation = (card.rotation == 0) ? 180 : 0;
+					// Cycle through rotation angles (0→45→90→...→315→0)
+					card.rotateNext();
 					invalidate();
 					return true;
 				}
@@ -207,7 +238,9 @@ public class SpreadDesignerView extends FrameLayout {
 					isDragging = true;
 					dragOffsetX = x - card.x;
 					dragOffsetY = y - card.y;
-					// Bring to front
+					// Bring to front: move card to end of list so it draws on top
+					cards.remove(card);
+					cards.add(card);
 					invalidate();
 					return true;
 				}
@@ -264,11 +297,19 @@ public class SpreadDesignerView extends FrameLayout {
 	}
 
 	private void drawCard(Canvas canvas, CardPlaceholder card) {
+		float cx = card.x + BASE_CARD_WIDTH / 2f;
+		float cy = card.y + BASE_CARD_HEIGHT / 2f;
+
+		// Save canvas state and rotate around center
+		canvas.save();
+		if (card.rotation != 0) {
+			canvas.rotate(card.rotation, cx, cy);
+		}
+
 		float left = card.x;
 		float top = card.y;
-		float right = left + card.getWidth();
-		float bottom = top + card.getHeight();
-
+		float right = left + BASE_CARD_WIDTH;
+		float bottom = top + BASE_CARD_HEIGHT;
 		RectF rect = new RectF(left, top, right, bottom);
 
 		// Fill
@@ -281,20 +322,17 @@ public class SpreadDesignerView extends FrameLayout {
 			canvas.drawRoundRect(rect, 6, 6, cardStrokePaint);
 		}
 
-		// Card number
-		float cx = left + card.getWidth() / 2f;
-		float cy = top + card.getHeight() / 2f;
+		// Card number (centered)
 		canvas.drawText(String.valueOf(card.index), cx, cy + 10, numberPaint);
 
-		// Rotation indicator
-		if (card.rotation == 180) {
-			// Draw a small "L" indicator for landscape
+		// Rotation angle indicator (top-left)
+		if (card.rotation != 0) {
 			Paint indicatorPaint = new Paint();
-			indicatorPaint.setColor(Color.argb(180, 255, 215, 0));
-			indicatorPaint.setTextSize(14);
+			indicatorPaint.setColor(Color.argb(200, 255, 215, 0));
+			indicatorPaint.setTextSize(12);
 			indicatorPaint.setTextAlign(Paint.Align.LEFT);
 			indicatorPaint.setAntiAlias(true);
-			canvas.drawText("↔", left + 4, top + 14, indicatorPaint);
+			canvas.drawText(card.rotation + "°", left + 3, top + 13, indicatorPaint);
 		}
 
 		// Label below card number
@@ -305,6 +343,9 @@ public class SpreadDesignerView extends FrameLayout {
 			}
 			canvas.drawText(displayLabel, cx, cy + 28, labelPaint);
 		}
+
+		// Restore canvas state
+		canvas.restore();
 	}
 
 	/**
@@ -544,13 +585,32 @@ public class SpreadDesignerView extends FrameLayout {
 
 	// ==================== Private helpers ====================
 
-	private CardPlaceholder findCardAt(int x, int y) {
+	private CardPlaceholder findCardAt(int touchX, int touchY) {
 		// Search in reverse order (top-most card first)
 		for (int i = cards.size() - 1; i >= 0; i--) {
 			CardPlaceholder card = cards.get(i);
-			if (x >= card.x && x <= card.x + card.getWidth()
-				&& y >= card.y && y <= card.y + card.getHeight()) {
-				return card;
+			// Transform touch point relative to card center, then un-rotate
+			float cx = card.x + BASE_CARD_WIDTH / 2f;
+			float cy = card.y + BASE_CARD_HEIGHT / 2f;
+			
+			if (card.rotation == 0) {
+				// Simple axis-aligned check
+				if (touchX >= card.x && touchX <= card.x + BASE_CARD_WIDTH
+					&& touchY >= card.y && touchY <= card.y + BASE_CARD_HEIGHT) {
+					return card;
+				}
+			} else {
+				// Un-rotate the touch point around the card center
+				double rad = Math.toRadians(-card.rotation);
+				float dx = touchX - cx;
+				float dy = touchY - cy;
+				float unrotatedX = (float)(dx * Math.cos(rad) - dy * Math.sin(rad)) + cx;
+				float unrotatedY = (float)(dx * Math.sin(rad) + dy * Math.cos(rad)) + cy;
+
+				if (unrotatedX >= card.x && unrotatedX <= card.x + BASE_CARD_WIDTH
+					&& unrotatedY >= card.y && unrotatedY <= card.y + BASE_CARD_HEIGHT) {
+					return card;
+				}
 			}
 		}
 		return null;
@@ -570,7 +630,8 @@ public class SpreadDesignerView extends FrameLayout {
 		final Context context = getContext();
 		String[] options = new String[]{
 			"Sửa tiêu đề vị trí",
-			"Xoay (Ngang ↔ Dọc)",
+			"Xoay 45° tiếp theo (hiện: " + card.rotation + "°)",
+			"Đặt góc xoay tùy chọn",
 			"Xóa vị trí này"
 		};
 
@@ -583,11 +644,14 @@ public class SpreadDesignerView extends FrameLayout {
 						case 0: // Edit label
 							showEditLabelDialog(card);
 							break;
-						case 1: // Toggle rotation
-							card.rotation = (card.rotation == 0) ? 180 : 0;
+						case 1: // Rotate next 45°
+							card.rotateNext();
 							invalidate();
 							break;
-						case 2: // Remove
+						case 2: // Custom rotation angle
+							showRotationPickerDialog(card);
+							break;
+						case 3: // Remove
 							removeCard(card);
 							break;
 					}
@@ -616,6 +680,31 @@ public class SpreadDesignerView extends FrameLayout {
 				}
 			})
 			.setNegativeButton("Hủy", null)
+			.show();
+	}
+
+	private void showRotationPickerDialog(final CardPlaceholder card) {
+		final Context context = getContext();
+		String[] angleLabels = new String[ROTATION_ANGLES.length];
+		int checkedItem = 0;
+		for (int i = 0; i < ROTATION_ANGLES.length; i++) {
+			angleLabels[i] = ROTATION_ANGLES[i] + "\u00b0";
+			if (ROTATION_ANGLES[i] == card.rotation) {
+				checkedItem = i;
+			}
+		}
+
+		new AlertDialog.Builder(context)
+			.setTitle("Ch\u1ecdn g\u00f3c xoay cho v\u1ecb tr\u00ed " + card.index)
+			.setSingleChoiceItems(angleLabels, checkedItem, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					card.rotation = ROTATION_ANGLES[which];
+					invalidate();
+					dialog.dismiss();
+				}
+			})
+			.setNegativeButton("H\u1ee7y", null)
 			.show();
 	}
 }

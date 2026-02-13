@@ -10,7 +10,7 @@ import greendream.ait.tarot.data.SymbolJasonHelper;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;

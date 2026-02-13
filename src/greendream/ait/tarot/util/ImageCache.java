@@ -25,9 +25,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.util.LruCache;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.collection.LruCache;
 import android.util.Log;
 
 import greendream.ait.tarot.BuildConfig;
